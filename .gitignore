@@ -1,1 +1,14 @@
-intel_robotic_welding_dataset/
+# Ignore everything inside intel_robotic_welding_dataset
+intel_robotic_welding_dataset/*
+
+# But keep these files
+!intel_robotic_welding_dataset/confusion_matrix*
+!intel_robotic_welding_dataset/test_predictions*
+!intel_robotic_welding_dataset/df_subset*
+
+# Keep these folders
+!intel_robotic_welding_dataset/checkpoints/
+!intel_robotic_welding_dataset/checkpoints_val/
+
+# Keep gitignore itself
+!.gitignore

@@ -1,0 +1,13 @@
+,Burnthrough,Crater_Cracks,Excessive_Convexity,Excessive_Penetration,Good,Lack_of_Fusion,Overlap,Porosity,Porosity_w_Excessive_Penetration,Spatter,Undercut,Warping
+Burnthrough,138,0,0,13,2,4,0,0,0,0,0,3
+Crater_Cracks,0,72,8,0,0,0,0,0,0,0,1,0
+Excessive_Convexity,0,0,80,0,0,0,0,0,0,0,0,0
+Excessive_Penetration,17,0,0,209,6,2,0,0,0,0,0,6
+Good,2,3,0,15,83,5,0,0,0,0,0,13
+Lack_of_Fusion,0,0,0,1,6,137,0,0,0,14,0,2
+Overlap,0,9,0,0,0,0,64,0,0,0,7,0
+Porosity,0,0,0,0,0,0,0,167,3,0,0,0
+Porosity_w_Excessive_Penetration,0,0,0,0,0,0,0,3,237,0,0,0
+Spatter,0,0,0,0,0,3,0,0,0,157,0,0
+Undercut,0,0,17,0,2,0,0,0,0,0,61,0
+Warping,3,0,0,2,31,14,0,1,0,0,0,109
