@@ -8,7 +8,7 @@ WeldNet combines unsupervised latent learning + lightweight supervised classific
 
 ## Highlights
 
-- **No temporal or frame-level labels required**
+-  **No temporal or frame-level labels required**
 -  **R3D-18** (Kinetics-400 pretrained) + Autoencoder bottleneck (64-d)
 -  **Memory-efficient training** with video chunking
 -  **Complete training → validation → evaluation pipeline** (5 commands)
@@ -20,17 +20,17 @@ WeldNet combines unsupervised latent learning + lightweight supervised classific
 ```
 intel_robotic_welding_dataset/
 ├── raid/
-│   └── intel_robotic_welding_dataset/
-│       ├── manifest.csv
-│       ├── good_weld_.../
-│       ├── lack_of_fusion_.../
-│       └── ...
-├── checkpoints/                  # Autoencoder weights
-│   ├── latest_checkpoint.pt
-│   └── best_model.pt
-├── checkpoints_val/              # Classifier weights
-│   ├── val_latest_checkpoint.pt
-│   └── val_best_model.pt
+│   ├── intel_robotic_welding_dataset/
+│   │   ├── manifest.csv
+│   │   ├── good_weld_.../
+│   │   ├── lack_of_fusion_.../
+│   │   └── ...
+│   ├── checkpoints/              # Autoencoder weights
+│   │   ├── latest_checkpoint.pt
+│   │   └── best_model.pt
+│   └── checkpoints_val/          # Classifier weights
+│       ├── val_latest_checkpoint.pt
+│       └── val_best_model.pt
 ├── train_welding_model.py        # Stage 1: Unsupervised AE training
 ├── val_welding_model.py          # Stage 2: Classifier training
 ├── test_video.py                 # TEST split evaluation → CSV + confusion matrix
