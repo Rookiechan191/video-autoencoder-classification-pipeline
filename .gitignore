@@ -4,7 +4,7 @@ intel_robotic_welding_dataset/*
 # But keep these files
 !intel_robotic_welding_dataset/confusion_matrix*
 !intel_robotic_welding_dataset/test_predictions*
-!intel_robotic_welding_dataset/df_subset*
+!intel_robotic_welding_dataset/df_subset.csv*
 
 # Keep these folders
 !intel_robotic_welding_dataset/checkpoints/
