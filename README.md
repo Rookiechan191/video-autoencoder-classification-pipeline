@@ -1,21 +1,23 @@
-WeldNet: Real-Time Unsupervised Welding Defect Classification
-
+# WeldNet: Real-Time Unsupervised Welding Defect Classification
 
 A production-ready PyTorch pipeline for classifying 12 robotic welding conditions directly from RGB video using the Intel Robotic Welding Dataset (2024).
 
 WeldNet combines unsupervised latent learning + lightweight supervised classification, inspired by modern SSL representation learning (e.g., arXiv:2409.02290) but fully optimized for industrial robotic welding.
 
-Highlights
+---
 
-No temporal or frame-level labels required
+## Highlights
 
-R3D-18 (Kinetics-400 pretrained) + Autoencoder bottleneck (64-d)
+- **No temporal or frame-level labels required**
+-  **R3D-18** (Kinetics-400 pretrained) + Autoencoder bottleneck (64-d)
+-  **Memory-efficient training** with video chunking
+-  **Complete training → validation → evaluation pipeline** (5 commands)
 
-Memory-efficient training with video chunking
+---
 
-Complete training → validation → evaluation pipeline (5 commands)
+## Project Structure
 
-Project Structure
+```
 intel_robotic_welding_dataset/
 ├── raid/
 │   └── intel_robotic_welding_dataset/
@@ -35,84 +37,113 @@ intel_robotic_welding_dataset/
 ├── single_video.py               # Real-time inference on any .avi file
 ├── check_file.py                 # Inspect .pt checkpoints
 └── README.md
+```
 
- Quick Start (5 Commands)
-1. Train the Autoencoder (Unsupervised Stage)
+---
+
+## Quick Start (5 Commands)
+
+### 1. Train the Autoencoder (Unsupervised Stage)
+
+```bash
 python train_welding_model.py
+```
 
-2. Train the Classifier on Frozen Latents
+### 2. Train the Classifier on Frozen Latents
+
+```bash
 python val_welding_model.py
+```
 
-3. Evaluate on the Official TEST Split
+### 3. Evaluate on the Official TEST Split
 
 Generates:
+- Confusion matrix
+- Per-class accuracy
+- Predictions CSV
 
-confusion matrix
-
-per-class accuracy
-
-predictions CSV
-
+```bash
 python test_video.py
+```
 
-4. Real-Time Inference on Any Video
+### 4. Real-Time Inference on Any Video
 
-Edit video_path inside the script:
+Edit `video_path` inside the script:
 
+```bash
 python single_video.py
+```
 
-5. Inspect a Checkpoint
+### 5. Inspect a Checkpoint
+
+```bash
 python check_file.py
+```
 
- Model Pipeline Overview
+---
+
+## Model Pipeline Overview
+
+```
 Video (.avi)
-   ↓ (Sliding window: 16 frames, stride 8–128)
+    ↓
+(Sliding window: 16 frames, stride 8–128)
+    ↓
 Clip batch
-   ↓
+    ↓
 R3D-18 (Kinetics-400 pretrained)
-   ↓   → 512-d features
+    ↓
+→ 512-d features
+    ↓
 Truncate to 400 dims
-   ↓
+    ↓
 Autoencoder (400 → 64 → 400)
-   ↓   → mean-pooled 64-d latent
+    ↓
+→ mean-pooled 64-d latent
+    ↓
 2-layer MLP classifier
-   ↓
+    ↓
 12-class prediction
+```
 
-🛠️ Technical Details
+---
 
-Backbone:
+## 🛠️ Technical Details
 
-torchvision.models.video.r3d_18(weights="KINETICS400_V1")
+### Backbone
+- `torchvision.models.video.r3d_18(weights="KINETICS400_V1")`
 
-Autoencoder:
+### Autoencoder
+- **Architecture:** 400 → 256 → 64 → 256 → 400
+- **Loss:** SmoothL1 + latent L2 (1e-4)
 
-Architecture: 400 → 256 → 64 → 256 → 400
+### Classifier
+- **MLP:** 64 → 128 → 12
+- **Loss:** Cross-Entropy
+- **Optimizer:** Adam
 
-Loss: SmoothL1 + latent L2 (1e-4)
+### Environment
+- PyTorch 2.3+
+- CUDA 11.8 / 12.x
+- OpenCV 4.8+
 
-Classifier:
+---
 
-MLP: 64 → 128 → 12
+## References
 
-Loss: Cross-Entropy
+1. Intel Corporation, *Intel Robotic Welding Dataset*, 2024.  
+   [HuggingFace Dataset](https://huggingface.co/datasets/IntelLabs/Intel_Robotic_Welding_Multimodal_Dataset)
 
-Optimizer: Adam
+2. W. Kay et al., "The Kinetics Human Action Video Dataset," arXiv:1705.06950 (2017).
 
-Environment:
+3. K. Hara et al., "Can Spatiotemporal 3D CNNs Retrace the History of 2D CNNs?," CVPR 2018.
 
-PyTorch 2.3+
+4. T. Chen et al., "Self-Supervised Learning of Visual Representations from Uncurated Data," arXiv:2409.02290 (2024).
 
-CUDA 11.8 / 12.x
+---
 
-OpenCV 4.8+
- References
+## License
 
-Intel Corporation, Intel Robotic Welding Dataset, 2024.
+This project uses the Intel Robotic Welding Dataset. Please refer to the dataset's license for usage terms.
 
-Repo credits : https://huggingface.co/datasets/IntelLabs/Intel_Robotic_Welding_Multimodal_Dataset
-W. Kay et al., “The Kinetics Human Action Video Dataset,” arXiv:1705.06950 (2017).
-
-K. Hara et al., “Can Spatiotemporal 3D CNNs Retrace the History of 2D CNNs?,” CVPR 2018.
-
-T. Chen et al., “Self-Supervised Learning of Visual Representations from Uncurated Data,” arXiv:2409.02290 (2024).
+---
